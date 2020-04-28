@@ -1,9 +1,11 @@
-const ship1 = {
-    health: 100,
-    damage: 20
-};
-const ship2 = {
-    health: 100,
-    damage: 20
-};
-export {ship1, ship2};
+class Ship {
+    constructor(health, damage, damageRate) {
+        this.health = health;
+        this.damage = damage;
+        this.damageRate = damageRate || 10;
+    }
+    getDamageWithRandom() {
+        return this.damage + this.damageRate * Math.random();
+    }
+}
+export {Ship};
