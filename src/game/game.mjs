@@ -20,6 +20,8 @@ const game = {
         } else {
             console.log('Ничья!');
         }
+        console.log(this.teamA);
+        console.log(this.teamB);
     },
     getFirstAliveShip: function (team) {
         for (const ship of team) {
