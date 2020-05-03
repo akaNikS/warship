@@ -1,25 +1,41 @@
 
 const game = {
-    teamA: null,
-    teamB: null,
+    teamA: [],
+    teamB: [],
     start: function () {
-        let dammageRate = 5;
-        while (this.teamA.health > 0 && this.teamB.health > 0) {
-            let randomDammage = (Math.random() * 10) - 5;
-            let randomDammage2 = (Math.random() * 10) - 5;
-            this.teamA.health -= this.teamB.damage + randomDammage;
-            this.teamB.health -= this.teamA.damage + randomDammage2;
-            console.log(`Первый корабль атакует. Урон ${this.teamA.damage + randomDammage2}; Остаток жизни ${this.teamB.health}.`);
-            console.log(`Второй корабль атакует. Урон ${this.teamB.damage + randomDammage}; Остаток жизни ${this.teamA.health}.`);
+        console.log(this.teamA);
+        console.log(this.teamB);
+        while (this.getFirstAliveShip(this.teamA) && this.getFirstAliveShip(this.teamB)) {
+            let shipTeamA = this.getFirstAliveShip(this.teamA);
+            let shipTeamB = this.getFirstAliveShip(this.teamB);
+            console.log('Атакует комнда "А"');
+            this.attack(shipTeamA, shipTeamB);
+            console.log('Атакует комнда "В"');
+            this.attack(shipTeamB, shipTeamA);
         }
-        if (this.teamA.health > this.teamB.health) {
-            console.log('победил первый');
-        } else if (this.teamB.health > this.teamA.health) {
-            console.log('победил второй');
+        if (this.getFirstAliveShip(this.teamA)) {
+            console.log('победила команда "А"');
+        } else if (this.getFirstAliveShip(this.teamB)) {
+            console.log('победила команда "В"');
         } else {
             console.log('Ничья!');
         }
-
+    },
+    getFirstAliveShip: function (team) {
+        for (const ship of team) {
+            if (ship.health > 0) {
+                return ship;
+            }
+        }
+        return null;
+    },
+    attack: function (attacker, defender) {
+        let randomDamage = attacker.getDamageWithRandom();
+        defender.health -= randomDamage;
+        console.log(`Урон: ${randomDamage}; Остаток жизни: ${defender.health}`);
+        if (defender.health < 0) {
+            console.log('Корабль уничтожен!');
+        }
     }
 };
 export {game};

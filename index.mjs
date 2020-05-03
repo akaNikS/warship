@@ -1,7 +1,6 @@
-import {ship1, ship2} from './src/entity/ship.mjs'
+import {Ship} from './src/entity/ship.mjs'
 import {game} from './src/game/game.mjs'
-console.log(ship1);
-console.log(ship2);
-game.teamA = ship1;
-game.teamB = ship2;
+
+game.teamA = [new Ship(100, 15), new Ship(100, 15)];
+game.teamB = [new Ship(100, 15), new Ship(100, 15)];
 game.start();
