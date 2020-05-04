@@ -1,6 +1,12 @@
 import {Ship} from './src/entity/ship.mjs'
 import {game} from './src/game/game.mjs'
+import {ShipFactory} from './src/factory/shipFactory.mjs'
 
-game.teamA = [new Ship(100, 15), new Ship(100, 15)];
-game.teamB = [new Ship(100, 15), new Ship(100, 15)];
-game.start();
+const shipFactory = new ShipFactory();
+try {
+    game.teamA = shipFactory.createTeam(101);
+    game.teamB = shipFactory.createTeam(5);
+    game.start();
+} catch (e) {
+    console.log(`Произошла ошибка: ${e}`);
+}
