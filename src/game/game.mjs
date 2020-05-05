@@ -1,37 +1,47 @@
+import {Team} from '../entity/team.mjs';
 
-const game = {
-    teamA: [],
-    teamB: [],
-    start: function () {
+class Game {
+    constructor() {
+        this.teamA = null;
+        this.teamB = null;
+    }
+    setTeamA(team) {
+        if (team instanceof Team) {
+            this.teamA = team;
+        } else {
+            throw 'Некорректный объект команды А';
+        }
+    }
+    setTeamB(team) {
+        if (team instanceof Team) {
+            this.teamB = team;
+        } else {
+            throw 'Некорректный объект команды В';
+        }
+    }
+    start() {
         console.log(this.teamA);
         console.log(this.teamB);
-        while (this.getFirstAliveShip(this.teamA) && this.getFirstAliveShip(this.teamB)) {
-            let shipTeamA = this.getFirstAliveShip(this.teamA);
-            let shipTeamB = this.getFirstAliveShip(this.teamB);
-            console.log('Атакует комнда "А"');
+        console.log('Раунд между командами: ' + this.teamA.name + ' и ' + this.teamB.name);
+        while (this.teamA.getFirstAliveShip() && this.teamB.getFirstAliveShip()) {
+            let shipTeamA = this.teamA.getFirstAliveShip();
+            let shipTeamB = this.teamB.getFirstAliveShip();
+            console.log('Атакует комнда: ' + this.teamA.name);
             this.attack(shipTeamA, shipTeamB);
-            console.log('Атакует комнда "В"');
+            console.log('Атакует комнда: ' + this.teamB.name);
             this.attack(shipTeamB, shipTeamA);
         }
-        if (this.getFirstAliveShip(this.teamA)) {
-            console.log('победила команда "А"');
-        } else if (this.getFirstAliveShip(this.teamB)) {
-            console.log('победила команда "В"');
+        if (this.teamA.getFirstAliveShip()) {
+            console.log('победила команда: ' + this.teamA.name);
+        } else if (this.teamB.getFirstAliveShip()) {
+            console.log('победила команда: ' + this.teamB.name);
         } else {
             console.log('Ничья!');
         }
         console.log(this.teamA);
         console.log(this.teamB);
-    },
-    getFirstAliveShip: function (team) {
-        for (const ship of team) {
-            if (ship.health > 0) {
-                return ship;
-            }
-        }
-        return null;
-    },
-    attack: function (attacker, defender) {
+    }
+    attack(attacker, defender) {
         let randomDamage = attacker.getDamageWithRandom();
         defender.health -= randomDamage;
         console.log(`Урон: ${randomDamage}; Остаток жизни: ${defender.health}`);
@@ -39,5 +49,6 @@ const game = {
             console.log('Корабль уничтожен!');
         }
     }
-};
-export {game};
+
+}
+export {Game};

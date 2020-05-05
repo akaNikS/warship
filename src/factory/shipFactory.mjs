@@ -1,9 +1,9 @@
 import {Ship} from '../entity/ship.mjs';
 
 class ShipFactory {
-    constructor() {
-    }
-    createTeam(count) {
+    constructor() {}
+
+    createShips(count) {
         if(count < 1 || count > 100) {
             throw 'Неправильное количество кораблей';
         }
