@@ -1,12 +1,14 @@
-import {Ship} from './src/entity/ship.mjs'
-import {game} from './src/game/game.mjs'
-import {ShipFactory} from './src/factory/shipFactory.mjs'
+import {Ship} from './src/entity/ship.mjs';
+import {ShipFactory} from './src/factory/shipFactory.mjs';
+import {Game} from './src/game/game.mjs';
+import {Team} from './src/entity/team.mjs';
 
 const shipFactory = new ShipFactory();
+const newGame = new Game();
 try {
-    game.teamA = shipFactory.createTeam(101);
-    game.teamB = shipFactory.createTeam(5);
-    game.start();
+    newGame.setTeamA(new Team(shipFactory.createShips(2)));
+    newGame.setTeamB(new Team(shipFactory.createShips(2)));
+    newGame.start();
 } catch (e) {
     console.log(`Произошла ошибка: ${e}`);
 }
