@@ -11,5 +11,18 @@ class Team {
         }
         return null;
     }
+    getRandomAliveShip() {
+        let aliveShips = [];
+        for (const ship of this.ships) {
+            if (ship.health > 0) {
+                aliveShips.push(ship)
+            }
+        }
+        if (aliveShips.length === 0) {
+            return null;
+        }
+        let randomIndex = Math.round(Math.random() * (aliveShips.length - 1));
+        return aliveShips[randomIndex];
+    }
 }
 export {Team};

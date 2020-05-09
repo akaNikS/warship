@@ -24,8 +24,8 @@ class Game {
         console.log(this.teamB);
         console.log('Раунд между командами: ' + this.teamA.name + ' и ' + this.teamB.name);
         while (this.teamA.getFirstAliveShip() && this.teamB.getFirstAliveShip()) {
-            let shipTeamA = this.teamA.getFirstAliveShip();
-            let shipTeamB = this.teamB.getFirstAliveShip();
+            let shipTeamA = this.teamA.getRandomAliveShip();
+            let shipTeamB = this.teamB.getRandomAliveShip();
             console.log('Атакует комнда: ' + this.teamA.name);
             this.attack(shipTeamA, shipTeamB);
             console.log('Атакует комнда: ' + this.teamB.name);
