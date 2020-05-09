@@ -6,8 +6,8 @@ import {Team} from './src/entity/team.mjs';
 const shipFactory = new ShipFactory();
 const newGame = new Game();
 try {
-    newGame.setTeamA(new Team(shipFactory.createShips(2)));
-    newGame.setTeamB(new Team(shipFactory.createShips(2)));
+    newGame.setTeamA(new Team(shipFactory.createShips(3)));
+    newGame.setTeamB(new Team(shipFactory.createShips(3)));
     newGame.start();
 } catch (e) {
     console.log(`Произошла ошибка: ${e}`);
