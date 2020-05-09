@@ -1,4 +1,6 @@
 import {Ship} from '../entity/ship.mjs';
+import {RocketShip} from '../entity/RocketShip.mjs';
+import {GunShip} from '../entity/GunShip.mjs';
 
 class ShipFactory {
     constructor() {}
@@ -9,7 +11,7 @@ class ShipFactory {
         }
         let ships = [];
         for (let i = 0; i < count; i++) {
-            ships.push(new Ship(100, 15));
+            ships.push(Math.random() < 0.8 ? new GunShip() : new RocketShip());
         }
         return ships;
     }
