@@ -24,12 +24,24 @@ class Game {
         console.log(this.teamB);
         console.log('Раунд между командами: ' + this.teamA.name + ' и ' + this.teamB.name);
         while (this.teamA.getFirstAliveShip() && this.teamB.getFirstAliveShip()) {
-            let shipTeamA = this.teamA.getRandomAliveShip();
-            let shipTeamB = this.teamB.getRandomAliveShip();
-            console.log('Атакует комнда: ' + this.teamA.name);
-            this.attack(shipTeamA, shipTeamB);
-            console.log('Атакует комнда: ' + this.teamB.name);
-            this.attack(shipTeamB, shipTeamA);
+            this.teamA.processStep();
+            this.teamB.processStep();
+            let shipDefenderTeamA = this.teamA.getRandomAliveShip();
+            let shipDefenderTeamB = this.teamB.getRandomAliveShip();
+            let shipAttackerTeamA = this.teamA.getRandomReadyShip();
+            let shipAttackerTeamB = this.teamB.getRandomReadyShip();
+            if (shipAttackerTeamA) {
+                console.log('\x1b[32mАтакует комнда: ' + this.teamA.name + '\x1b[0m');
+                this.attack(shipAttackerTeamA, shipDefenderTeamB);
+            } else {
+                console.log('\x1b[32mУ команды: ' + this.teamA.name + ' нет атакующих кораблей\x1b[0m');
+            }
+            if (shipAttackerTeamB) {
+                console.log('\x1b[32mАтакует комнда: ' + this.teamB.name + '\x1b[0m');
+                this.attack(shipAttackerTeamB, shipDefenderTeamA);
+            } else {
+                console.log('\x1b[32mУ команды: ' + this.teamB.name + ' нет атакующих кораблей\x1b[0m');
+            }
         }
         if (this.teamA.getFirstAliveShip()) {
             console.log('победила команда: ' + this.teamA.name);
@@ -46,7 +58,7 @@ class Game {
         defender.health -= randomDamage;
         console.log(`Урон: ${randomDamage}; Остаток жизни: ${defender.health}`);
         if (defender.health < 0) {
-            console.log('Корабль уничтожен!');
+            console.log('\x1b[31mКорабль уничтожен!\x1b[0m');
         }
     }
 
