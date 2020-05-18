@@ -50,8 +50,10 @@ class Game {
         } else {
             console.log('Ничья!');
         }
-        console.log(this.teamA);
-        console.log(this.teamB);
+        console.log(this.teamA.toString());
+        console.log((this.teamA.getTypeShip()).join(' \x1b[34m☷☷☷\x1b[0m '));
+        console.log(this.teamB.toString());
+        console.log((this.teamB.getTypeShip()).join(' \x1b[34m☷☷☷\x1b[0m '));
     }
     attack(attacker, defender) {
         let randomDamage = attacker.getDamageWithRandom();
